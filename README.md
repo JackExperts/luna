@@ -1,36 +1,34 @@
 # Luna
 
-Luna 是 JumpServer 的 Web Terminal 项目,
-主要使用 [Angular](https://angular.io/), [Material](https://material.angular.io/) 完成,
-名字来源于 Dota 英雄 [Luna](https://www.dota2.com/hero/luna)
+Luna é um projeto de Terminal Web do JumpServer, desenvolvido principalmente com [Angular](https://angular.io/) e [Material](https://material.angular.io/), e seu nome é inspirado na heroína Luna do Dota ([Luna](https://www.dota2.com/hero/luna)).
 
-## 开发运行
+## Desenvolvimento e Execução
 
 ```
-0. 前置条件: 部署运行好 JumpServer API 服务器
+0. Pré-requisitos: Tenha o servidor JumpServer API implantado e em execução
 
-1. 安装依赖
+1. Instale as dependências
 $ npm install
 
-2. 运行
+2. Execute
 $ npm run start
 
-3. 构建
+3. Construa
 $ rm -fr luna
 $ npm run-script build
 ```
 
-## 生产中部署
+## Implantação em Produção
 
-下载 RELEASE 文件，放到合适的目录，修改 nginx配置文件如下Nginx config:
+Baixe o arquivo de RELEASE, coloque-o em um diretório adequado e modifique o arquivo de configuração do Nginx conforme abaixo:
 
-```
+```nginx
   location /luna/ {
     try_files $uri / /index.html;
-    alias /path/of/your/luna/;
+    alias /caminho/do/seu/luna/;
   }
 ```
 
-## License & Copyright
+## Licença e Direitos Autorais
 
-Be consistent with [jumpserver](https://github.com/jumpserver/jumpserver)
+Mantenha a consistência com o [jumpserver](https://github.com/jumpserver/jumpserver).
