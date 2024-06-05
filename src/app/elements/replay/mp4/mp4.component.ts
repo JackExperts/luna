@@ -38,7 +38,7 @@ export class ElementsReplayMp4Component implements OnInit {
   getUserLang() {
     const userLangEN = document.cookie.indexOf('django_language=en');
     if (userLangEN === -1) {
-    return 'zh-CN';
+    return 'pt';
     } else {
     return 'en-US';
     }

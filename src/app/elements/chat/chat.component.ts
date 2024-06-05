@@ -1,5 +1,5 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {SettingService, ViewService} from '@app/services';
+import {OnInit, OnDestroy, Component} from '@angular/core';
+import {ViewService, SettingService} from '@app/services';
 import {View} from '@app/model';
 
 @Component({
@@ -11,14 +11,13 @@ import {View} from '@app/model';
 export class ElementChatComponent implements OnInit, OnDestroy {
   isShow = true;
   element: any;
-  iframeURL: string;
+  iframeURL: String;
   currentView: View;
 
   constructor(
     public viewSrv: ViewService,
     public _settingSvc: SettingService
-  ) {
-  }
+  ) {}
 
   get isShowSetting() {
     const connectMethods = ['koko', 'lion', 'tinker', 'panda'];
@@ -63,7 +62,7 @@ export class ElementChatComponent implements OnInit, OnDestroy {
 
       clientOffset.clientX = event.clientX;
       clientOffset.clientY = event.clientY;
-      document.onmousemove = function (ev: any) {
+      document.onmousemove = function(ev: any) {
         dragBox.style.left = ev.clientX - innerX + 'px';
         dragBox.style.top = ev.clientY - innerY + 'px';
         const dragDivTop = window.innerHeight - dragBox.getBoundingClientRect().height;
@@ -79,7 +78,7 @@ export class ElementChatComponent implements OnInit, OnDestroy {
         ev.preventDefault();
         ev.stopPropagation();
       };
-      document.onmouseup = function () {
+      document.onmouseup = function() {
         document.onmousemove = null;
         document.onmouseup = null;
       };
@@ -88,10 +87,10 @@ export class ElementChatComponent implements OnInit, OnDestroy {
       const clientX = event.clientX;
       const clientY = event.clientY;
       if (
-        this.isDifferenceWithinThreshold(clientX, clientOffset.clientX)
-        && this.isDifferenceWithinThreshold(clientY, clientOffset.clientY)
-        && (event.target === dragButton || this.isDescendant(event.target, dragButton))
-      ) {
+          this.isDifferenceWithinThreshold(clientX, clientOffset.clientX)
+          && this.isDifferenceWithinThreshold(clientY, clientOffset.clientY)
+          && (event.target === dragButton || this.isDescendant(event.target, dragButton))
+        ) {
         this.isShow = !this.isShow;
       }
     });

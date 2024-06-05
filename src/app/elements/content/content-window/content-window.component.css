@@ -23,9 +23,6 @@ div, elements-term, elements-guacamole {
 .sub-view {
   flex: 1;
   height: 100%;
-}
-
-.border-style {
   border-left: 1px solid black;
 }
 

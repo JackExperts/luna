@@ -1032,7 +1032,7 @@ input.mat-input-element {
 }
 
 .mat-dialog-container {
-  background: #fff;
+  background: #ff0000;
   color: rgba(0, 0, 0, .87)
 }
 
@@ -1354,23 +1354,23 @@ input.mat-input-element {
 }
 
 .mat-select-value {
-  color: rgba(0, 0, 0, .87)
+  color: rgba(255, 255, 255, 1)
 }
 
 .mat-select-placeholder {
-  color: rgba(0, 0, 0, .42)
+  color: rgba(255, 255, 255, 1)
 }
 
 .mat-select-disabled .mat-select-value {
-  color: rgba(0, 0, 0, .38)
+  color: rgba(255, 255, 255, 1)
 }
 
 .mat-select-arrow {
-  color: rgba(0, 0, 0, .54)
+  color: rgba(255, 255, 255, 1)
 }
 
 .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
-  background: rgba(0, 0, 0, .12)
+  background: rgba(255, 255, 255, 1)
 }
 
 .mat-form-field.mat-focused.mat-primary .mat-select-arrow {

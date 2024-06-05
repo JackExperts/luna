@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 import {ConnectMethod, ConnectOption, Protocol, Setting} from '@app/model';
 import {resolutionsChoices} from '@app/globals';
 import {SettingService} from '@app/services';
@@ -8,14 +8,13 @@ import {SettingService} from '@app/services';
   templateUrl: './advanced-option.component.html',
   styleUrls: ['./advanced-option.component.scss'],
 })
-export class ElementAdvancedOptionComponent implements OnChanges, OnInit {
+export class ElementAdvancedOptionComponent implements OnChanges {
   @Input() protocol: Protocol;
   @Input() connectMethod: ConnectMethod;
-  @Input() connectOption: any = {};
+  @Input() connectOption: Object = {};
   public advancedOptions: ConnectOption[] = [];
   public isShowAdvancedOption = false;
   public setting: Setting;
-  private allOptions: ConnectOption[] = [];
   private boolChoices = [
     {label: 'Yes', value: true},
     {label: 'No', value: false},
@@ -23,7 +22,10 @@ export class ElementAdvancedOptionComponent implements OnChanges, OnInit {
 
   constructor(public _settingSvc: SettingService) {
     this.setting = _settingSvc.setting;
-    this.allOptions = [
+  }
+
+  ngOnChanges() {
+    this.advancedOptions = [
       {
         type: 'select',
         field: 'charset',
@@ -67,9 +69,9 @@ export class ElementAdvancedOptionComponent implements OnChanges, OnInit {
           const protocolsCanResolution: Array<string> = ['rdp'];
           return !protocolsCanResolution.includes(this.protocol.name);
         },
-        options: resolutionsChoices.map(i => ({label: i, value: i.toLowerCase()})),
-        label: 'RDP resolution',
-        value: this.setting.graphics.rdp_resolution || 'auto'
+        options: resolutionsChoices.map(i => ({label: i, value: i})),
+        label: 'Resolution',
+        value: this.setting.graphics.rdp_resolution
       },
       {
         type: 'select',
@@ -96,54 +98,14 @@ export class ElementAdvancedOptionComponent implements OnChanges, OnInit {
           }
           return !this.connectMethod || this.connectMethod.component !== 'tinker';
         }
-      },
-      {
-        type: 'select',
-        field: 'reusable',
-        options: this.boolChoices,
-        label: 'RDP file reusable',
-        value: false,
-        hidden: () => {
-          if (!this.connectMethod) {
-            return true;
-          }
-          if (!this._settingSvc.globalSetting.CONNECTION_TOKEN_REUSABLE) {
-            return true;
-          }
-          if (this.connectMethod.component === 'razor') {
-            return false;
-          }
-          if (this.connectMethod.component === 'tinker') {
-            return this.connectOption.appletConnectMethod !== 'client';
-          }
-          return true;
-        }
       }
     ];
-  }
-
-  ngOnInit() {
-  }
-
-  checkOptions() {
-    const onlyUsingDefaultFields = ['reusable'];
-    this.allOptions.forEach(i => {
+    this.advancedOptions = this.advancedOptions.filter(i => !i.hidden());
+    this.advancedOptions.forEach(i => {
       if (this.connectOption[i.field] === undefined) {
         this.connectOption[i.field] = i.value;
       }
-      if (onlyUsingDefaultFields.includes(i.field)) {
-        i.value = this.connectOption[i.field];
-      }
     });
-    this.advancedOptions = this.allOptions.filter(i => !i.hidden());
     this.isShowAdvancedOption = this.advancedOptions.length > 0;
-  }
-
-  onChange() {
-    this.checkOptions();
-  }
-
-  ngOnChanges() {
-    this.checkOptions();
   }
 }

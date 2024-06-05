@@ -65,7 +65,7 @@ export class ElementReplayGuacamoleComponent implements OnInit {
     );
     this.winSizeSub = this.winSizeChange$
       .subscribe(() => {
-        this.recordingDisplay.scale(this.getPropScale());
+        this.recordingDisplay.onresize(this.recordingDisplay.getWidth(), this.recordingDisplay.getHeight());
       });
   }
 
@@ -96,23 +96,12 @@ export class ElementReplayGuacamoleComponent implements OnInit {
       if (!height) {
         return;
       }
-      this.recordingDisplay.scale(this.getPropScale());
+      // Scale displayRef to fit width of container
+      const widthScale = this.displayRef.offsetWidth / width;
+      const heightScale = this.displayRef.offsetHeight / height;
+      const minScale = widthScale < heightScale ? widthScale : heightScale;
+      this.recordingDisplay.scale(minScale);
     };
-  }
-
-  getPropScale () {
-    let scale = 1;
-    if (this.recordingDisplay) {
-      const width = this.recordingDisplay.getWidth();
-      const height = this.recordingDisplay.getHeight();
-      if (!width || !height) {
-        return scale;
-      }
-      const widthScale = this.screenRef.offsetWidth / width;
-      const heightScale = this.screenRef.offsetHeight / height;
-      scale = Math.min(widthScale, heightScale);
-    }
-    return scale;
   }
 
   restart() {
@@ -123,7 +112,7 @@ export class ElementReplayGuacamoleComponent implements OnInit {
   getUserLang() {
     const userLangEN = document.cookie.indexOf('django_language=en');
     if (userLangEN === -1) {
-    return 'zh-CN';
+    return 'pt';
     } else {
     return 'en-US';
     }

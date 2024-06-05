@@ -116,6 +116,13 @@ export class ElementNavComponent implements OnInit {
         name: 'Language',
         children: [
           {
+            id: 'Português (Brasil)',
+            click: () => {
+              this._i18n.use('pt');
+            },
+            name: 'Português (Brasil)'
+          },
+          {
             id: 'English',
             click: () => {
               this._i18n.use('en');
@@ -128,13 +135,6 @@ export class ElementNavComponent implements OnInit {
               this._i18n.use('zh');
             },
             name: '中文'
-          },
-          {
-            id: 'Chinese-hant',
-            click: () => {
-              this._i18n.use('zh-hant');
-            },
-            name: '中文(繁體)'
           },
           {
             id: 'Japanese',
