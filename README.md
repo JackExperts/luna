@@ -1,6 +1,6 @@
-git clone https://github.com/joaofaria/luna-v3.10.7.git
+git clone https://github.com/JackExperts/luna.git
 
-cd luna-v3.10.7/
+cd luna/
 
 yarn install
 
